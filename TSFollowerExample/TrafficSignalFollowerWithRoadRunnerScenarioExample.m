@@ -211,12 +211,10 @@ helperSLTrafficSignalExampleSetup(rrApp,rrSim,"scenarioFileName","scenario_01_Tr
 %%
 % Simulate the scenario, and visualize the traffic signal states and
 % vehicle runtime information.
-
-% set(rrSim,SimulationCommand="Start")
-% while strcmp(get(rrSim,"SimulationStatus"),"Running")
-%    pause(1)
-% end
-
+set(rrSim,SimulationCommand="Start")
+while strcmp(get(rrSim,"SimulationStatus"),"Running")
+    pause(1)
+end
 %%
 % The visualization displays these plots and tables:
 %
@@ -269,13 +267,10 @@ helperSLTrafficSignalExampleSetup(rrApp,rrSim,"scenarioFileName","scenario_02_Tr
 %%
 % Simulate the scenario, and visualize the traffic signal states and
 % vehicle runtime information.
-
 set(rrSim,SimulationCommand="Start")
-
-% while strcmp(get(rrSim,"SimulationStatus"),"Running")
-%     pause(1)
-% end
-
+while strcmp(get(rrSim,"SimulationStatus"),"Running")
+    pause(1)
+end
 %%
 % 
 % <<../TrafficSignalFollowerScenarioSimulation.gif>>
@@ -291,49 +286,3 @@ set(rrSim,SimulationCommand="Start")
 % and continue following the specified path. All the target vehicles in the
 % scenario |scenario_02_TrafficSignalFollower| follow the traffic signals
 % according to the states of their respective signals.
-
-
-%% Main Simulation Loop with HTTP Interface Integration
-% (Assuming that signalSpec, signalRuntime, and allVehicleRuntime have 
-% been updated by the simulation at each step.)
-
-% Create an instance of the HelperAggregateTrafficSignalInfo System object.
-aggTrafficSignalInfo = HelperAggregateTrafficSignalInfo();
-setup(aggTrafficSignalInfo);  % Call setup if required
-
-while strcmp(get(rrSim, "SimulationStatus"), "Running")
-    pause(1);  % Simulate a time step
-
-    %--------------------------------------------------------------------------
-    % Step 1: Aggregate the current traffic signal info.
-    %--------------------------------------------------------------------------
-    % For example, the aggregated info is computed from the current signal
-    % specifications, runtime, and vehicle runtime data.
-    aggInfo = step(aggTrafficSignalInfo, signalSpec, signalRuntime, allVehicleRuntime);
-    
-    %--------------------------------------------------------------------------
-    % Step 2: Send the aggregated info to the (mock) HTTP interface.
-    %--------------------------------------------------------------------------
-    updatedSignals = MockHTTPInterface(aggInfo);
-    
-    %--------------------------------------------------------------------------
-    % Step 3: Update traffic signal runtime information with the new data.
-    %--------------------------------------------------------------------------
-    % Loop over each updated signal returned by the HTTP interface,
-    % find the matching signal in signalRuntime, and update the corresponding
-    % status and remaining time.
-    for idx = 1:numel(updatedSignals)
-        signalId = updatedSignals(idx).SignalID;
-        % Find the matching signal in the runtime structure.
-        sigIndex = find([signalRuntime.TrafficSignalRuntime.ActorID] == signalId, 1);
-        if ~isempty(sigIndex)
-            % Assume we update the latest turn configuration in the signal's runtime.
-            numTurnConfig = signalRuntime.TrafficSignalRuntime(sigIndex).SignalConfiguration.NumTurnConfiguration;
-            signalRuntime.TrafficSignalRuntime(sigIndex).SignalConfiguration.TurnConfiguration(numTurnConfig).ConfigurationType = updatedSignals(idx).Status;
-            signalRuntime.TrafficSignalRuntime(sigIndex).SignalConfiguration.TurnConfiguration(numTurnConfig).TimeLeft = updatedSignals(idx).RemainingTime;
-        end
-    end
-    
-    % (Optional) Call visualization update routines or additional simulation logic.
-    
-end
