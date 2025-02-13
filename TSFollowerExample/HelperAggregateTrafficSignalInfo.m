@@ -14,13 +14,11 @@ classdef HelperAggregateTrafficSignalInfo < matlab.System
     %
     % It uses the RoadRunner HD map (RRHDMap) to obtain lane and junction geometric data.
     
-    properties (Nontunable)
-        RRHDMap = roadrunnerHDMap;  % RoadRunner HD Map object containing Lanes and Junctions.
-    end
     
     properties (Access = private)
         AllLaneID      % Array of all lane IDs extracted from RRHDMap.
         JunctionLaneID % Cell array: each cell contains the lane IDs for one junction.
+        RRHDMap
     end
     
     methods (Access = protected)
@@ -39,7 +37,7 @@ classdef HelperAggregateTrafficSignalInfo < matlab.System
             end
         end
         
-        function aggInfo = stepImpl(obj, signalSpec, signalRuntime, allVehicleRuntime)
+        function aggInfo = stepImpl(obj, signalSpec, signalRuntime, allVehicleRuntime, RRHDMap)
             % Aggregates information for each traffic signal.
             %
             % For each signal in signalRuntime, the following info is extracted:
@@ -51,6 +49,21 @@ classdef HelperAggregateTrafficSignalInfo < matlab.System
             % Output:
             %   aggInfo: A structure array, one element per traffic signal.
             
+            obj.RRHDMap = RRHDMap;
+                        % Precompute lane and junction information from the RoadRunner HD map.
+            
+            if isprop(obj.RRHDMap, 'Lanes') & numel(obj.AllLaneID) == 0
+                obj.AllLaneID = vertcat(obj.RRHDMap.Lanes.ID);
+            else
+                obj.AllLaneID = [];
+            end
+            
+            if isprop(obj.RRHDMap, 'Junctions') & numel(obj.JunctionLaneID) == 0
+                obj.JunctionLaneID = arrayfun(@(jc) vertcat(jc.Lanes.ID), obj.RRHDMap.Junctions, 'UniformOutput', false);
+            else
+                obj.JunctionLaneID = {};
+            end
+
             numSignals = numel(signalRuntime.TrafficSignalRuntime);
             aggInfo = repmat(struct('SignalID', [], 'Status', [], 'RemainingTime', [], ...
                                     'ControlledLane', [], 'Vehicles', []), numSignals, 1);
@@ -83,6 +96,12 @@ classdef HelperAggregateTrafficSignalInfo < matlab.System
                     vehPosMat = vehRuntime.ActorRuntime.Pose;
                     vehPos = vehPosMat(1:3, 4)';  % 提取车辆位置坐标
                     vehLaneID = obj.findClosestLaneID(vehPos); % 使用与信号灯相同的投影方法
+
+                    disp(j);
+                    disp(vehLaneID);
+                    disp(controlledLaneId);
+                    disp('====');
+
                     
                     % 确保车道ID有效且匹配受控车道
                     if isempty(vehLaneID) || (vehLaneID ~= controlledLaneId)
@@ -101,6 +120,7 @@ classdef HelperAggregateTrafficSignalInfo < matlab.System
                         'DistanceToStop', distanceToStop ...
                     );
                     vehiclesInLane = [vehiclesInLane; vehicleInfo];  %#ok<AGROW>
+                    disp(vehiclesInLane)
                 end
 
                 % Populate the aggregated traffic signal info structure.
@@ -116,11 +136,13 @@ classdef HelperAggregateTrafficSignalInfo < matlab.System
             % Improved method for determining the controlled lane.
             % Instead of using the average (center) of the lane, it evaluates the
             % minimal perpendicular distance from the signalPos to every lane segment.
+            m = obj.RRHDMap;
             lanes = obj.RRHDMap.Lanes;
             minDist = inf;
             laneID  = NaN;
             for idx = 1:numel(lanes)
                 laneGeom = lanes(idx).Geometry;  % Assume an N x 3 matrix for [x y z] coordinates.
+                
                 for k = 1:size(laneGeom,1)-1
                     d = HelperAggregateTrafficSignalInfo.pointToSegmentDistance(signalPos, laneGeom(k,:), laneGeom(k+1,:));
                     if d < minDist
