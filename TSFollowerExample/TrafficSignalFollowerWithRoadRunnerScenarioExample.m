@@ -287,6 +287,7 @@ end
 % scenario |scenario_02_TrafficSignalFollower| follow the traffic signals
 % according to the states of their respective signals.
 
+
 %% Main Simulation Loop with HTTP Interface Integration
 % (Assuming that signalSpec, signalRuntime, and allVehicleRuntime have 
 % been updated by the simulation at each step.)
