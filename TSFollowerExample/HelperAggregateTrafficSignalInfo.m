@@ -78,10 +78,17 @@ classdef HelperAggregateTrafficSignalInfo < matlab.System
                 for j = 1:numel(allVehicleRuntime)
                     vehRuntime = allVehicleRuntime(j);
                     vehLaneID = [];
-                    % 通过车辆位置投影到地图获取车道ID
-                    vehPosMat = vehRuntime.ActorRuntime.Pose;
-                    vehPos = vehPosMat(1:3, 4)';  % 提取车辆位置坐标
-                    vehLaneID = obj.findClosestLaneID(vehPos); % 使用与信号灯相同的投影方法
+                    
+                    % 尝试通过 LaneLocation 属性获取车道ID
+                    laneLoc = vehRuntime.ActorRuntime.getAttribute("LaneLocation");
+                    if ~isempty(laneLoc) && isstruct(laneLoc) && isfield(laneLoc, 'LocationOnLane')
+                        vehLaneID = laneLoc.LocationOnLane.LaneID;
+                    else
+                        % 通过车辆位置投影到地图获取车道ID
+                        vehPosMat = vehRuntime.ActorRuntime.Pose;
+                        vehPos = vehPosMat(1:3, 4)';  % 提取车辆位置坐标
+                        vehLaneID = obj.findClosestLaneID(vehPos); % 使用与信号灯相同的投影方法
+                    end
                     
                     % 确保车道ID有效且匹配受控车道
                     if isempty(vehLaneID) || (vehLaneID ~= controlledLaneId)
@@ -101,7 +108,6 @@ classdef HelperAggregateTrafficSignalInfo < matlab.System
                     );
                     vehiclesInLane = [vehiclesInLane; vehicleInfo];  %#ok<AGROW>
                 end
-
 
                 % Populate the aggregated traffic signal info structure.
                 aggInfo(i).SignalID      = currSignalRT.ActorID;
