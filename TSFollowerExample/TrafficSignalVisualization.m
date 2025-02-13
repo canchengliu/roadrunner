@@ -161,7 +161,7 @@ classdef TrafficSignalVisualization < matlab.System
                 % Create an instance of the helper that aggregates traffic signal information.
                 aggHelper = HelperAggregateTrafficSignalInfo();
                 % Use the helper to produce AggregateTrafficSignalInfo from the available inputs.
-                aggInfo = step(aggHelper, signalSpec, signalRuntime, allVehicleRuntime);
+                aggInfo = step(aggHelper, signalSpec, signalRuntime, allVehicleRuntime, obj.RRHDMap);
                 
                 % Send aggInfo to the mock HTTP interface (which simulates a remote call)
                 updatedSignals = MockHTTPInterface(aggInfo);
