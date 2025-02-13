@@ -211,10 +211,10 @@ helperSLTrafficSignalExampleSetup(rrApp,rrSim,"scenarioFileName","scenario_01_Tr
 %%
 % Simulate the scenario, and visualize the traffic signal states and
 % vehicle runtime information.
-set(rrSim,SimulationCommand="Start")
-while strcmp(get(rrSim,"SimulationStatus"),"Running")
-    pause(1)
-end
+% set(rrSim,SimulationCommand="Start")
+% while strcmp(get(rrSim,"SimulationStatus"),"Running")
+%    pause(1)
+% end
 %%
 % The visualization displays these plots and tables:
 %
