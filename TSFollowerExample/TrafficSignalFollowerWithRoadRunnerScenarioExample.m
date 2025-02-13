@@ -286,3 +286,4 @@ end
 % and continue following the specified path. All the target vehicles in the
 % scenario |scenario_02_TrafficSignalFollower| follow the traffic signals
 % according to the states of their respective signals.
+
