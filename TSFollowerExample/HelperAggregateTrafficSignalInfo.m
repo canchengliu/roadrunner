@@ -72,33 +72,37 @@ classdef HelperAggregateTrafficSignalInfo < matlab.System
                 % Determine the controlled lane via an improved projection method.
                 signalPos = currSignalSpec.SignalPosition;
                 controlledLaneId = obj.findClosestLaneID(signalPos);
-                
+
                 % Identify vehicles that are on the controlled lane and aggregate info.
                 vehiclesInLane = [];
                 for j = 1:numel(allVehicleRuntime)
                     vehRuntime = allVehicleRuntime(j);
-                    % Assume each vehicle provides a "LaneLocation" attribute under ActorRuntime.
-                    laneLoc = vehRuntime.ActorRuntime.getAttribute("LaneLocation");
-                    if isempty(laneLoc) || ~isstruct(laneLoc) || ~isfield(laneLoc, 'LocationOnLane')
+                    vehLaneID = [];
+                    % 通过车辆位置投影到地图获取车道ID
+                    vehPosMat = vehRuntime.ActorRuntime.Pose;
+                    vehPos = vehPosMat(1:3, 4)';  % 提取车辆位置坐标
+                    vehLaneID = obj.findClosestLaneID(vehPos); % 使用与信号灯相同的投影方法
+                    
+                    % 确保车道ID有效且匹配受控车道
+                    if isempty(vehLaneID) || (vehLaneID ~= controlledLaneId)
                         continue;
                     end
-                    vehLaneID = laneLoc.LocationOnLane.LaneID;
-                    if vehLaneID == controlledLaneId
-                        % Compute vehicle speed from its Velocity.
-                        vehVel = vehRuntime.ActorRuntime.Velocity;
-                        speed = norm(vehVel);
-                        % Compute an improved estimate of the distance to the stop line along the lane.
-                        vehPosMat = vehRuntime.ActorRuntime.Pose;
-                        vehPos = vehPosMat(1:3,4)';  % Assume column 4 holds the translation.
-                        distanceToStop = obj.computeDistanceToStopLine(vehPos, controlledLaneId);
-                        
-                        vehicleInfo = struct('VehicleID', vehRuntime.ActorRuntime.getAttribute("ID"), ...
-                                             'Speed', speed, ...
-                                             'DistanceToStop', distanceToStop);
-                        vehiclesInLane = [vehiclesInLane; vehicleInfo];  %#ok<AGROW>
-                    end
+                    
+                    % 计算车辆速度和到停止线的距离
+                    vehVel = vehRuntime.ActorRuntime.Velocity;
+                    speed = norm(vehVel);
+                    distanceToStop = obj.computeDistanceToStopLine(vehPos, controlledLaneId);
+                    
+                    % 收集车辆信息
+                    vehicleInfo = struct(...
+                        'VehicleID', vehRuntime.ActorRuntime.getAttribute("ID"), ...
+                        'Speed', speed, ...
+                        'DistanceToStop', distanceToStop ...
+                    );
+                    vehiclesInLane = [vehiclesInLane; vehicleInfo];  %#ok<AGROW>
                 end
-                
+
+
                 % Populate the aggregated traffic signal info structure.
                 aggInfo(i).SignalID      = currSignalRT.ActorID;
                 aggInfo(i).Status        = status;
