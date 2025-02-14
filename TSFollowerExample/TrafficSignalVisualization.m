@@ -176,12 +176,30 @@ classdef TrafficSignalVisualization < matlab.System
                         turnConfigIdx = signalRuntime.TrafficSignalRuntime(i).SignalConfiguration.NumTurnConfiguration;
                         
                         % Reset the traffic signal status and remaining time based on the HTTP return.
-                        % signalRuntime.TrafficSignalRuntime(i).SignalConfiguration.TurnConfiguration(turnConfigIdx).ConfigurationType = ...
-                        %    updatedSignals(idx).Status;
+                        signalRuntime.TrafficSignalRuntime(i).SignalConfiguration.TurnConfiguration(turnConfigIdx).ConfigurationType = ...
+                           updatedSignals(idx).Status;
                         
                         signalRuntime.TrafficSignalRuntime(i).SignalConfiguration.TurnConfiguration(turnConfigIdx).TimeLeft = ...
                             updatedSignals(idx).RemainingTime;
                     
+                        % Get all actor simulation objects from the scenario simulation object
+                        actorSim = obj.RRSimObj.get("ActorSimulation");
+                        
+                        % Find the traffic signal actor corresponding to the updated signal
+                        signalIndex = find(cellfun(@(c) c.getAttribute("ID") == updatedSignals(idx).SignalID, actorSim), 1);
+                        if ~isempty(signalIndex)
+                            % Prepare an updated runtime structure (this structure must match what the signal expects)
+                            newRuntime = signalRuntime.TrafficSignalRuntime(i).SignalConfiguration;
+
+                            % newRuntime.TurnConfiguration(turnConfigIdx-1).ConfigurationType = updatedSignals(idx).Status;
+                            % newRuntime.TurnConfiguration(turnConfigIdx).TimeLeft = updatedSignals(idx).RemainingTime;
+                            
+                            newRuntime.TurnConfiguration(turnConfigIdx-1).ConfigurationType = EnumConfigurationType.Red;
+                            newRuntime.TurnConfiguration(turnConfigIdx).TimeLeft = 5;
+
+                            % Set the new runtime attribute (make sure "TrafficSignalRuntime" is the proper attribute name)
+                            actorSim{signalIndex}.setAttribute("TrafficSignalRuntime", newRuntime);
+                        end
                     end
                 end
                 % === End of New Functionality ===
