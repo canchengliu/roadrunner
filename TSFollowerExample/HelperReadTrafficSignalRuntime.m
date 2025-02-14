@@ -129,12 +129,10 @@ classdef HelperReadTrafficSignalRuntime < matlab.System
                 
                 % Update the TimeLeft for each turn configuration.
                 numTurns = runtime.SignalConfiguration.NumTurnConfiguration;
-                for turnIdx = 1:numTurns
-                    currentTimeLeft = runtime.SignalConfiguration.TurnConfiguration(turnIdx).TimeLeft;
-                    newTimeLeft = max(0, currentTimeLeft - obj.Ts);
-                    runtime.SignalConfiguration.TurnConfiguration(turnIdx).TimeLeft = 5; % newTimeLeft;
-                end
-                
+
+                runtime.SignalConfiguration.TurnConfiguration(numTurns-1).ConfigurationType = EnumIntervalType.Red;
+                runtime.SignalConfiguration.TurnConfiguration(numTurns).TimeLeft = 5;
+
                 % Write the updated runtime state back to the simulation object.
                 simActor.setAttribute("TrafficSignalRuntime", runtime);
             end
