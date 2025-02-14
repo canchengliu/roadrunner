@@ -60,6 +60,11 @@ classdef TrafficSignalVisualization < matlab.System
         RedStyle
         YellowStyle
         GreenStyle
+
+        % New property to hold a reference to the RoadRunner simulation object.
+        RRSimObj
+        % (If you do not assign RRSimObj before running the simulation,
+        %  the update to the simulation objects will be skipped.)
     end
 
     methods (Access = protected)
@@ -157,54 +162,53 @@ classdef TrafficSignalVisualization < matlab.System
 
         function stepImpl(obj,signalRuntime,signalSpec,allVehicleRuntime)
             if ~obj.DisableVisualization
-                % === New Functionality: Obtain Aggregate Traffic Signal Info and update signals ===
+                % === New Functionality: Aggregate Traffic Signal Info and update signals ===
                 % Create an instance of the helper that aggregates traffic signal information.
                 aggHelper = HelperAggregateTrafficSignalInfo();
-                % Use the helper to produce AggregateTrafficSignalInfo from the available inputs.
+                % Obtain aggregate traffic signal info.
                 aggInfo = step(aggHelper, signalSpec, signalRuntime, allVehicleRuntime);
                 
                 % Send aggInfo to the mock HTTP interface (which simulates a remote call)
                 updatedSignals = MockHTTPInterface(aggInfo);
                 
-                % Use the returned signal status and remaining time to update each traffic signal.
+                % Iterate over each traffic signal to update its status.
                 for i = 1:numel(signalRuntime.TrafficSignalRuntime)
                     % Find the updated info that corresponds to the current signal using its ActorID.
                     signalID = signalRuntime.TrafficSignalRuntime(i).ActorID;
                     idx = find([updatedSignals.SignalID] == signalID, 1);
                     if ~isempty(idx)
-                        % Determine the current turn configuration (assumed to be the active one)
+                        % Determine the current turn configuration (assumed to be active)
                         turnConfigIdx = signalRuntime.TrafficSignalRuntime(i).SignalConfiguration.NumTurnConfiguration;
                         
-                        % Reset the traffic signal status and remaining time based on the HTTP return.
+                        % Update the local copy for visualization.
                         signalRuntime.TrafficSignalRuntime(i).SignalConfiguration.TurnConfiguration(turnConfigIdx).ConfigurationType = ...
                            updatedSignals(idx).Status;
-                        
                         signalRuntime.TrafficSignalRuntime(i).SignalConfiguration.TurnConfiguration(turnConfigIdx).TimeLeft = ...
                             updatedSignals(idx).RemainingTime;
-                    
-                        % Get all actor simulation objects from the scenario simulation object
-                        actorSim = obj.RRSimObj.get("ActorSimulation");
                         
-                        % Find the traffic signal actor corresponding to the updated signal
-                        signalIndex = find(cellfun(@(c) c.getAttribute("ID") == updatedSignals(idx).SignalID, actorSim), 1);
-                        if ~isempty(signalIndex)
-                            % Prepare an updated runtime structure (this structure must match what the signal expects)
-                            newRuntime = signalRuntime.TrafficSignalRuntime(i).SignalConfiguration;
+                        % Propagate the update to the underlying simulation object if available.
+                        if ~isempty(obj.RRSimObj)
+                            % Assume that RRSimObj provides access to the actor simulation objects.
+                            actorSim = obj.RRSimObj.get("ActorSimulation");
+                            % Find the simulation actor with the matching ID.
+                            actorIdx = find(cellfun(@(a) a.getAttribute("ID") == signalID, actorSim), 1);
+                            if ~isempty(actorIdx)
+                                % Read current runtime settings.
+                                currRuntime = actorSim{actorIdx}.getAttribute("TrafficSignalRuntime");
+                                % Update the configuration in the runtime structure.
+                                % currRuntime.SignalConfiguration.TurnConfiguration(turnConfigIdx).ConfigurationType = updatedSignals(idx).Status;
+                                % currRuntime.SignalConfiguration.TurnConfiguration(turnConfigIdx).TimeLeft = updatedSignals(idx).RemainingTime;
 
-                            % newRuntime.TurnConfiguration(turnConfigIdx-1).ConfigurationType = updatedSignals(idx).Status;
-                            % newRuntime.TurnConfiguration(turnConfigIdx).TimeLeft = updatedSignals(idx).RemainingTime;
-                            
-                            newRuntime.TurnConfiguration(turnConfigIdx-1).ConfigurationType = EnumConfigurationType.Red;
-                            newRuntime.TurnConfiguration(turnConfigIdx).TimeLeft = 5;
+                                currRuntime.SignalConfiguration.TurnConfiguration(turnConfigIdx).ConfigurationType = EnumConfigurationType.Red;
+                                currRuntime.SignalConfiguration.TurnConfiguration(turnConfigIdx).TimeLeft = 5;
 
-                            % Set the new runtime attribute (make sure "TrafficSignalRuntime" is the proper attribute name)
-                            actorSim{signalIndex}.setAttribute("TrafficSignalRuntime", newRuntime);
+                                % Write back the updated settings.
+                                actorSim{actorIdx}.setAttribute("TrafficSignalRuntime", currRuntime);
+                            end
                         end
                     end
                 end
-                % === End of New Functionality ===
-                
-                % Initialize counter
+                % Increment the counter.
                 obj.Counter = obj.Counter + 1;
                 
                 % Plot the static information only once at the start.
