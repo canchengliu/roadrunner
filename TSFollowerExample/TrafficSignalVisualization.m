@@ -161,7 +161,7 @@ classdef TrafficSignalVisualization < matlab.System
                 % Create an instance of the helper that aggregates traffic signal information.
                 aggHelper = HelperAggregateTrafficSignalInfo();
                 % Use the helper to produce AggregateTrafficSignalInfo from the available inputs.
-                aggInfo = step(aggHelper, signalSpec, signalRuntime, allVehicleRuntime, obj.RRHDMap);
+                aggInfo = step(aggHelper, signalSpec, signalRuntime, allVehicleRuntime);
                 
                 % Send aggInfo to the mock HTTP interface (which simulates a remote call)
                 updatedSignals = MockHTTPInterface(aggInfo);
@@ -174,11 +174,14 @@ classdef TrafficSignalVisualization < matlab.System
                     if ~isempty(idx)
                         % Determine the current turn configuration (assumed to be the active one)
                         turnConfigIdx = signalRuntime.TrafficSignalRuntime(i).SignalConfiguration.NumTurnConfiguration;
+                        
                         % Reset the traffic signal status and remaining time based on the HTTP return.
-                        signalRuntime.TrafficSignalRuntime(i).SignalConfiguration.TurnConfiguration(turnConfigIdx).ConfigurationType = ...
-                            updatedSignals(idx).Status;
+                        % signalRuntime.TrafficSignalRuntime(i).SignalConfiguration.TurnConfiguration(turnConfigIdx).ConfigurationType = ...
+                        %    updatedSignals(idx).Status;
+                        
                         signalRuntime.TrafficSignalRuntime(i).SignalConfiguration.TurnConfiguration(turnConfigIdx).TimeLeft = ...
                             updatedSignals(idx).RemainingTime;
+                    
                     end
                 end
                 % === End of New Functionality ===

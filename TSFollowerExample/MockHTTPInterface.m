@@ -19,16 +19,11 @@ updatedSignals = repmat(struct('SignalID', [], 'Status', [], 'RemainingTime', []
 
 for i = 1:numSignals
     updatedSignals(i).SignalID = aggInfo(i).SignalID;
-    
-    % Toggle the status to simulate a remote update:
-    if strcmpi(aggInfo(i).Status, 'Red')
-        updatedSignals(i).Status = 'Green';
-    else
-        updatedSignals(i).Status = 'Red';
-    end
-    
+
+    disp(aggInfo(i));    
+
     % Increase the remaining time by a constant offset (for example, +5 sec)
-    updatedSignals(i).RemainingTime = aggInfo(i).RemainingTime + 5;
+    updatedSignals(i).RemainingTime = 5; % aggInfo(i).RemainingTime + 5;
 end
 
 end 

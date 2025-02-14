@@ -12,21 +12,23 @@ classdef HelperAggregateTrafficSignalInfo < matlab.System
     % vehicle for which the distance is minimum (when compared against all signals)
     % is assumed to be controlled by that signal.
     
-    methods (Access = protected)
-        
-        function aggInfo = stepImpl(obj, signalSpec, signalRuntime, allVehicleRuntime, rrHDMap)
+    methods (Access = protected)        
+        function aggInfo = stepImpl(obj, signalSpec, signalRuntime, allVehicleRuntime)
             % Number of traffic signals in the scenario (assumed to be stored in 
             % signalSpec.TrafficSignalSpec).
             numSignals = numel(signalSpec.TrafficSignalSpec);
             
             % Preallocate structure array for aggregated info with fields:
-            % SignalID, Configuration, Status, RemainingTime, and ControlledVehicleSpeeds.
+            % SignalID, Configuration, Status, RemainingTime, ControlledVehicleSpeeds, 
+            % BulbColor, CurrentTurnType, and NextTurnType.
             aggInfo = repmat(struct('SignalID', [], ...
-                                    'Configuration', [], ...
                                     'Status', [], ...
                                     'RemainingTime', [], ...
-                                    'ControlledVehicleSpeeds', []), ...
-                             numSignals, 1);
+                                    'ControlledVehicleSpeeds', [], ...
+                                    'BulbColor', [], ...
+                                    'CurrentTurnType', [], ...
+                                    'NextTurnType', []), ...
+                            numSignals, 1);
             
             % For each traffic signal, store its configuration (static specification)
             % and obtain its current status and remaining time from signalRuntime.
@@ -45,15 +47,34 @@ classdef HelperAggregateTrafficSignalInfo < matlab.System
                     currentTurnConfig = signalRuntime.TrafficSignalRuntime(runtimeIdx).SignalConfiguration.TurnConfiguration(numTurnConfig);
                     currentStatus = currentTurnConfig.ConfigurationType;
                     remainingTime = currentTurnConfig.TimeLeft;
+                    
+                    % Extract bulb color and turn types
+                    bulbColorEnum = signalRuntime.TrafficSignalRuntime(runtimeIdx).SignalConfiguration.TurnConfiguration(numTurnConfig-1).ConfigurationType;
+                    if bulbColorEnum == EnumConfigurationType.Red || bulbColorEnum == EnumConfigurationType.Green || bulbColorEnum == EnumConfigurationType.Yellow
+                        bulbColor = char(bulbColorEnum);
+                    else
+                        bulbColor = 'none';
+                    end
+                    
+                    % Current and next turn types
+                    currentTurnType = char(signalRuntime.TrafficSignalRuntime(runtimeIdx).SignalConfiguration.TurnConfiguration(numTurnConfig-1).TurnType);
+                    nextTurnType = char(signalRuntime.TrafficSignalRuntime(runtimeIdx).SignalConfiguration.TurnConfiguration(numTurnConfig).TurnType);
                 else
                     currentStatus = '';
                     remainingTime = 0;
+                    bulbColor = 'none';
+                    currentTurnType = '';
+                    nextTurnType = '';
                 end
                 
+                % Store signal data in the aggInfo structure
                 aggInfo(s).SignalID = signalID;
-                aggInfo(s).Configuration = signalSpec.TrafficSignalSpec(s);
+                % aggInfo(s).Configuration = signalSpec.TrafficSignalSpec(s);
                 aggInfo(s).Status = currentStatus;
                 aggInfo(s).RemainingTime = remainingTime;
+                aggInfo(s).BulbColor = bulbColor;
+                aggInfo(s).CurrentTurnType = currentTurnType;
+                aggInfo(s).NextTurnType = nextTurnType;
                 aggInfo(s).ControlledVehicleSpeeds = []; % initialize with empty array
             end
             
