@@ -119,13 +119,24 @@ classdef HelperReadTrafficSignalRuntime < matlab.System
 
             %% Update TimeLeft for each traffic signal
             % For each traffic signal, subtract the sample time from each turn configuration's TimeLeft
+
             for signalIdx = 1:numel(obj.TrafficSignalActorSimulation)
-                numTurns = signalRuntime.TrafficSignalRuntime(signalIdx).SignalConfiguration.NumTurnConfiguration;
+                % Obtain the actor simulation object for the current traffic signal.
+                simActor = obj.TrafficSignalActorSimulation{signalIdx};
+                
+                % Read the current runtime state from the actor.
+                runtime = simActor.getAttribute("TrafficSignalRuntime");
+                
+                % Update the TimeLeft for each turn configuration.
+                numTurns = runtime.SignalConfiguration.NumTurnConfiguration;
                 for turnIdx = 1:numTurns
-                    currentTimeLeft = signalRuntime.TrafficSignalRuntime(signalIdx).SignalConfiguration.TurnConfiguration(turnIdx).TimeLeft;
+                    currentTimeLeft = runtime.SignalConfiguration.TurnConfiguration(turnIdx).TimeLeft;
                     newTimeLeft = max(0, currentTimeLeft - obj.Ts);
-                    signalRuntime.TrafficSignalRuntime(signalIdx).SignalConfiguration.TurnConfiguration(turnIdx).TimeLeft = newTimeLeft;
+                    runtime.SignalConfiguration.TurnConfiguration(turnIdx).TimeLeft = 5; % newTimeLeft;
                 end
+                
+                % Write the updated runtime state back to the simulation object.
+                simActor.setAttribute("TrafficSignalRuntime", runtime);
             end
         end
 
