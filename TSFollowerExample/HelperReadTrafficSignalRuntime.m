@@ -116,6 +116,17 @@ classdef HelperReadTrafficSignalRuntime < matlab.System
                 signalRuntime.TrafficSignalRuntime(signalIdx).SignalConfiguration.NumTurnConfiguration = currSignalRuntime.SignalConfiguration.NumTurnConfiguration;
                 signalRuntime.TrafficSignalRuntime(signalIdx).SignalConfiguration.TurnConfiguration(1:currSignalRuntime.SignalConfiguration.NumTurnConfiguration) = currSignalRuntime.SignalConfiguration.TurnConfiguration;
             end
+
+            %% Update TimeLeft for each traffic signal
+            % For each traffic signal, subtract the sample time from each turn configuration's TimeLeft
+            for signalIdx = 1:numel(obj.TrafficSignalActorSimulation)
+                numTurns = signalRuntime.TrafficSignalRuntime(signalIdx).SignalConfiguration.NumTurnConfiguration;
+                for turnIdx = 1:numTurns
+                    currentTimeLeft = signalRuntime.TrafficSignalRuntime(signalIdx).SignalConfiguration.TurnConfiguration(turnIdx).TimeLeft;
+                    newTimeLeft = max(0, currentTimeLeft - obj.Ts);
+                    signalRuntime.TrafficSignalRuntime(signalIdx).SignalConfiguration.TurnConfiguration(turnIdx).TimeLeft = newTimeLeft;
+                end
+            end
         end
 
         function icon = getIconImpl(obj)
