@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-02-10 22:42:06 by Eclipse SUMO netedit Version 1.20.0
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Detectors -->
+    <laneAreaDetector id="e2_0" lane="-1_e_0" pos="0.00" length="70.98" period="300.00" file="e2_0.xml"/>
+    <laneAreaDetector id="e2_1" lane="-1_e_1" pos="0.00" length="70.98" period="300.00" file="e2_1.xml"/>
+    <laneAreaDetector id="e2_10" lane="-5_e_0" pos="0.00" length="68.06" period="300.00" file="e2_10.xml"/>
+    <laneAreaDetector id="e2_11" lane="-5_e_2" pos="0.00" length="68.06" period="300.00" file="e2_11.xml"/>
+    <laneAreaDetector id="e2_12" lane="-5_e_1" pos="0.00" length="68.06" period="300.00" file="e2_12.xml"/>
+    <laneAreaDetector id="e2_13" lane="-8_w_2" pos="0.00" length="100.33" period="300.00" file="e2_13.xml"/>
+    <laneAreaDetector id="e2_14" lane="-8_w_1" pos="0.00" length="100.33" period="300.00" file="e2_14.xml"/>
+    <laneAreaDetector id="e2_15" lane="-8_w_0" pos="0.00" length="100.33" period="300.00" file="e2_15.xml"/>
+    <laneAreaDetector id="e2_2" lane="-6_w_1" pos="0.00" length="109.83" period="300.00" file="e2_2.xml"/>
+    <laneAreaDetector id="e2_3" lane="-6_w_0" pos="0.00" length="109.83" period="300.00" file="e2_3.xml"/>
+    <laneAreaDetector id="e2_4" lane="-2_e_0" pos="0.00" length="65.61" period="300.00" file="e2_4.xml"/>
+    <laneAreaDetector id="e2_5" lane="-3_e_0" pos="0.00" length="61.71" period="300.00" file="e2_5.xml"/>
+    <laneAreaDetector id="e2_6" lane="-3_e_1" pos="0.00" length="61.71" period="300.00" file="e2_6.xml"/>
+    <laneAreaDetector id="e2_7" lane="-3_e_2" pos="0.00" length="61.71" period="300.00" file="e2_7.xml"/>
+    <laneAreaDetector id="e2_8" lane="-4_e_0" pos="0.00" length="65.52" period="300.00" file="e2_8.xml"/>
+    <laneAreaDetector id="e2_9" lane="-7_w_0" pos="0.00" length="98.22" period="300.00" file="e2_9.xml"/>
+    <laneAreaDetector id="e2det_0_e_0" lane="0_e_0" pos="0.00" length="155.78" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_0_e_1" lane="0_e_1" pos="0.00" length="155.78" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_0_s_0" lane="0_s_0" pos="0.00" length="101.36" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_0_w_0" lane="0_w_0" pos="0.00" length="70.98" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_0_w_1" lane="0_w_1" pos="0.00" length="70.98" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_10_n_0" lane="10_n_0" pos="0.00" length="75.20" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_10_s_0" lane="10_s_0" pos="0.00" length="77.02" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_10_w_0" lane="10_w_0" pos="0.00" length="136.55" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_11_e_0" lane="11_e_0" pos="0.00" length="156.45" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_11_n_0" lane="11_n_0" pos="0.00" length="77.02" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_11_s_0" lane="11_s_0" pos="0.00" length="111.83" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_11_w_0" lane="11_w_0" pos="0.00" length="136.40" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_12_e_0" lane="12_e_0" pos="0.00" length="156.28" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_12_n_0" lane="12_n_0" pos="0.00" length="111.83" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_12_s_0" lane="12_s_0" pos="0.00" length="81.14" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_12_w_0" lane="12_w_0" pos="0.00" length="138.32" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_13_e_0" lane="13_e_0" pos="0.00" length="157.60" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_13_e_1" lane="13_e_1" pos="0.00" length="157.60" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_13_e_2" lane="13_e_2" pos="0.00" length="157.60" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_13_n_0" lane="13_n_0" pos="0.00" length="81.14" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_13_w_0" lane="13_w_0" pos="0.00" length="140.37" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_13_w_1" lane="13_w_1" pos="0.00" length="140.37" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_13_w_2" lane="13_w_2" pos="0.00" length="140.37" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_14_e_0" lane="14_e_0" pos="0.00" length="109.83" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_14_e_1" lane="14_e_1" pos="0.00" length="109.83" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_14_s_0" lane="14_s_0" pos="0.00" length="83.87" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_14_s_1" lane="14_s_1" pos="0.00" length="83.87" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_14_s_2" lane="14_s_2" pos="0.00" length="83.87" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_14_w_0" lane="14_w_0" pos="0.00" length="180.18" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_14_w_1" lane="14_w_1" pos="0.00" length="180.18" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_15_n_0" lane="15_n_0" pos="0.00" length="83.87" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_15_n_1" lane="15_n_1" pos="0.00" length="83.87" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_15_n_2" lane="15_n_2" pos="0.00" length="83.87" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_15_s_0" lane="15_s_0" pos="0.00" length="163.38" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_15_s_1" lane="15_s_1" pos="0.00" length="163.38" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_15_s_2" lane="15_s_2" pos="0.00" length="163.38" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_15_w_0" lane="15_w_0" pos="0.00" length="155.44" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_15_w_1" lane="15_w_1" pos="0.00" length="155.44" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_15_w_2" lane="15_w_2" pos="0.00" length="155.44" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_16_e_0" lane="16_e_0" pos="0.00" length="98.22" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_16_n_0" lane="16_n_0" pos="0.00" length="163.38" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_16_n_1" lane="16_n_1" pos="0.00" length="163.38" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_16_n_2" lane="16_n_2" pos="0.00" length="163.38" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_16_s_0" lane="16_s_0" pos="0.00" length="115.09" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_16_s_1" lane="16_s_1" pos="0.00" length="115.09" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_16_s_2" lane="16_s_2" pos="0.00" length="115.09" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_16_w_0" lane="16_w_0" pos="0.00" length="156.45" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_17_n_0" lane="17_n_0" pos="0.00" length="115.09" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_17_n_1" lane="17_n_1" pos="0.00" length="115.09" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_17_n_2" lane="17_n_2" pos="0.00" length="115.09" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_17_s_0" lane="17_s_0" pos="0.00" length="84.13" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_17_s_1" lane="17_s_1" pos="0.00" length="84.13" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_17_s_2" lane="17_s_2" pos="0.00" length="84.13" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_17_w_0" lane="17_w_0" pos="0.00" length="156.28" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_18_e_0" lane="18_e_0" pos="0.00" length="100.33" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_18_e_1" lane="18_e_1" pos="0.00" length="100.33" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_18_e_2" lane="18_e_2" pos="0.00" length="100.33" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_18_n_0" lane="18_n_0" pos="0.00" length="84.13" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_18_n_1" lane="18_n_1" pos="0.00" length="84.13" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_18_n_2" lane="18_n_2" pos="0.00" length="84.13" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_18_w_0" lane="18_w_0" pos="0.00" length="157.60" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_18_w_1" lane="18_w_1" pos="0.00" length="157.60" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_18_w_2" lane="18_w_2" pos="0.00" length="157.60" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_1_e_0" lane="1_e_0" pos="0.00" length="150.46" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_1_n_0" lane="1_n_0" pos="0.00" length="101.36" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_1_s_0" lane="1_s_0" pos="0.00" length="147.39" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_1_w_0" lane="1_w_0" pos="0.00" length="65.61" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_2_e_0" lane="2_e_0" pos="0.00" length="136.42" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_2_e_1" lane="2_e_1" pos="0.00" length="136.42" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_2_e_2" lane="2_e_2" pos="0.00" length="136.42" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_2_n_0" lane="2_n_0" pos="0.00" length="147.39" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_2_s_0" lane="2_s_0" pos="0.00" length="75.87" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_2_w_0" lane="2_w_0" pos="0.00" length="61.71" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_2_w_1" lane="2_w_1" pos="0.00" length="61.71" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_2_w_2" lane="2_w_2" pos="0.00" length="61.71" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_3_e_0" lane="3_e_0" pos="0.00" length="136.55" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_3_n_0" lane="3_n_0" pos="0.00" length="75.87" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_3_s_0" lane="3_s_0" pos="0.00" length="78.22" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_4_e_0" lane="4_e_0" pos="0.00" length="136.40" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_4_n_0" lane="4_n_0" pos="0.00" length="78.22" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_4_s_0" lane="4_s_0" pos="0.00" length="109.57" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_4_w_0" lane="4_w_0" pos="0.00" length="65.52" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_5_e_0" lane="5_e_0" pos="0.00" length="138.32" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_5_n_0" lane="5_n_0" pos="0.00" length="109.57" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_5_s_0" lane="5_s_0" pos="0.00" length="82.06" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_6_e_0" lane="6_e_0" pos="0.00" length="140.37" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_6_e_1" lane="6_e_1" pos="0.00" length="140.37" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_6_e_2" lane="6_e_2" pos="0.00" length="140.37" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_6_n_0" lane="6_n_0" pos="0.00" length="82.06" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_6_w_0" lane="6_w_0" pos="0.00" length="68.06" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_6_w_1" lane="6_w_1" pos="0.00" length="68.06" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_6_w_2" lane="6_w_2" pos="0.00" length="68.06" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_7_e_0" lane="7_e_0" pos="0.00" length="180.18" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_7_e_1" lane="7_e_1" pos="0.00" length="180.18" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_7_s_0" lane="7_s_0" pos="0.00" length="94.58" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_7_w_0" lane="7_w_0" pos="0.00" length="155.78" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_7_w_1" lane="7_w_1" pos="0.00" length="155.78" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_8_n_0" lane="8_n_0" pos="0.00" length="94.58" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_8_s_0" lane="8_s_0" pos="0.00" length="72.11" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_8_w_0" lane="8_w_0" pos="0.00" length="150.46" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_9_e_0" lane="9_e_0" pos="0.00" length="155.44" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_9_e_1" lane="9_e_1" pos="0.00" length="155.44" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_9_e_2" lane="9_e_2" pos="0.00" length="155.44" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_9_n_0" lane="9_n_0" pos="0.00" length="72.11" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_9_s_0" lane="9_s_0" pos="0.00" length="75.20" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_9_w_0" lane="9_w_0" pos="0.00" length="136.42" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_9_w_1" lane="9_w_1" pos="0.00" length="136.42" period="60.00" file="e2output.xml" friendlyPos="1"/>
+    <laneAreaDetector id="e2det_9_w_2" lane="9_w_2" pos="0.00" length="136.42" period="60.00" file="e2output.xml" friendlyPos="1"/>
+</additional>

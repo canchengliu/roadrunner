@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<input>
+		<net-file value="map.net.xml"/>
+		<route-files value="route.rou.xml"/>
+		<additional-files value="add/E2.add.xml"/>
+	</input>
+
+	<step-length value="0.01"/>
+
+	<output>
+		<write-license value="true"/>
+		<tripinfo-output value="output.out.xml"/>
+	</output>
+
+	<time>
+		<begin value="0"/>
+		<end value="4500"/>
+	</time>
+
+	<gui_only>
+		<start value="true"/>
+	</gui_only>
+</configuration>

@@ -1,8 +1,7 @@
-TSFollowerExample/slprj/
-Simulation/obj/Debug
-Simulation/Library/ShaderCache
-Simulation/Library/ScriptAssemblies
-Simulation/Library/metadata
-Simulation/Assets/Logitech SDK
-Simulation/Assets/Standard Assets
-Simulation/Assets/LowPolyStreetPack
+Sumo Unity/obj/Debug
+Sumo Unity/Library/ShaderCache
+Sumo Unity/Library/ScriptAssemblies
+Sumo Unity/Library/metadata
+Sumo Unity/Assets/Logitech SDK
+Sumo Unity/Assets/Standard Assets
+Sumo Unity/Assets/LowPolyStreetPack
