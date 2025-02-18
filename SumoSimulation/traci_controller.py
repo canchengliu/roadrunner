@@ -1,4 +1,5 @@
 import traci
+import time
 import traci.constants as tc
 
 def run_simulation():
@@ -14,6 +15,7 @@ def run_simulation():
     current_phase = traci.trafficlight.getPhase(tls_id)
     
     while traci.simulation.getMinExpectedNumber() > 0:
+        time.sleep(0.5)
         traci.simulationStep()  # 执行一个仿真步
         
         # 这里可以添加检测各个控制道路上车流状态的逻辑，
